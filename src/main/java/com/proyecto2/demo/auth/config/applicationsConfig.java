@@ -1,7 +1,7 @@
 package com.proyecto2.demo.config;
 
 import com.proyecto2.demo.auth.Dao.AuthDao;
-import com.proyecto2.demo.auth.Service.AuthService;
+import com.proyecto2.demo.auth.Service.AuthDetalis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,16 +11,17 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
-
 public class applicationsConfig {
-    private final AuthService authService;
+    private final AuthDetalis authDetalis;
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception
+    {
         return  config.getAuthenticationManager();
     }
 
@@ -29,18 +30,17 @@ public class applicationsConfig {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return  authenticationProvider;
-
+        return authenticationProvider;
     }
 
     @Bean
-    private PasswordEncoder passwordEncoder() {
-
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    private UserDetailsService userDetailsService() {
-        return username -> authService.finByName(username)
+    public UserDetailsService userDetailsService() {
+        return username -> authDetalis.finByName(username)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
     }

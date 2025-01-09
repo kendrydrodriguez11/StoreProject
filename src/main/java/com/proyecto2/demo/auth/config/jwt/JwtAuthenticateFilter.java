@@ -12,12 +12,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class JwtAthenticateFilter extends OncePerRequestFilter {
+public class JwtAuthenticateFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
         final String token = getTokenFromRequest(request);
-        if(token == null) {
+        if(token == null ) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -26,9 +27,13 @@ public class JwtAthenticateFilter extends OncePerRequestFilter {
 
     private String getTokenFromRequest(HttpServletRequest request) {
         //header of authorization
-        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")){
-            return  authHeader.substring(7);
+        try{
+            final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+            if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")){
+                return  authHeader.substring(7);
+            }
+        }catch (Exception e){
+            System.out.println("entro");
         }
         return null;
     }

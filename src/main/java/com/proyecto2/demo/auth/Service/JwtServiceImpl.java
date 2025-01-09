@@ -1,5 +1,5 @@
 //generador del token
-package com.proyecto2.demo.auth.jwt;
+package com.proyecto2.demo.auth.Service;
 
 import io.jsonwebtoken.Jwts; // Asegúrate de importar correctamente las clases necesarias
 import io.jsonwebtoken.SignatureAlgorithm; // Agrega esto si estás firmando el token
@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 
 @Service
-public class JwtServiceImpl implements JwtService{
+public class JwtServiceImpl implements JwtService {
 
     private static final String SECRE_KEY = "586E3272357538782F413F4428472B4B6250655368566B597033733676397924";
 
@@ -36,7 +36,6 @@ public class JwtServiceImpl implements JwtService{
 
     private Key getKey() {
         byte[] keyByte = Base64.getDecoder().decode(SECRE_KEY);
-        System.out.println(Keys.hmacShaKeyFor(keyByte) + "aqui esta");
         return Keys.hmacShaKeyFor(keyByte);
     }
 

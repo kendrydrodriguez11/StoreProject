@@ -2,34 +2,32 @@ package com.proyecto2.demo.auth.AuthModels;
 
 import com.proyecto2.demo.auth.User.UserRole;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
+
+@Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"name"} ))
 public class UserModels implements UserDetails {
-    @Getter @Setter @GeneratedValue
+    @Getter @Setter @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id @Column(name = "idUser")
     private long id;
 
-    @Getter @Setter @Column(name="usernName", nullable = false)
+    @Column(name="user_name", nullable = false)
     private String userName;
 
-    @Getter @Setter @Column(name = "lastName")
+    @Getter @Setter @Column(name = "last_name")
     private String lastName;
 
-    @Getter @Setter @Column(name = "password1")
-    private String password1;
-
-    @Getter @Setter @Column(name = "password2")
-    private String password2;
+    @Column(name = "password")
+    private String password;
 
     @Getter @Setter @Column(name = "mail")
     private String mail;
@@ -38,7 +36,6 @@ public class UserModels implements UserDetails {
     @Getter @Setter @Column(name = "role")
     UserRole role;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -46,7 +43,7 @@ public class UserModels implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return password;
     }
 
     @Override

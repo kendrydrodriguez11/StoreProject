@@ -2,7 +2,7 @@ package com.proyecto2.demo.auth.Dao;
 
 import com.proyecto2.demo.auth.AuthModels.UserModels;
 import com.proyecto2.demo.auth.controllers.AuthResponse;
-import com.proyecto2.demo.auth.controllers.LoginRequest;
+import com.proyecto2.demo.auth.controllers.request.LoginRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
@@ -22,9 +22,9 @@ public class AuthDaoImpl implements AuthDao {
         try{
             return  entityManager.merge(user);
         }catch (Exception e){
+            System.err.println("Error in authDao, in the register of auth in the database: " + e.getMessage());
             return null;
         }
-
     }
 
 

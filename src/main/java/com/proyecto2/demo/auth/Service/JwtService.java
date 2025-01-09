@@ -1,4 +1,4 @@
-package com.proyecto2.demo.auth.jwt;
+package com.proyecto2.demo.auth.Service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

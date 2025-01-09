@@ -1,4 +1,4 @@
-package com.proyecto2.demo.config;
+package com.proyecto2.demo.auth.config;
 
 import com.proyecto2.demo.auth.Dao.AuthDao;
 import com.proyecto2.demo.auth.Service.AuthDetalis;

@@ -1,4 +1,4 @@
-package com.proyecto2.demo.auth.jwt;
+package com.proyecto2.demo.auth.config.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,11 +19,13 @@ public class JwtAuthenticateFilter extends OncePerRequestFilter {
 
         final String token = getTokenFromRequest(request);
         if(token == null ) {
+
             filterChain.doFilter(request, response);
             return;
         }
         filterChain.doFilter(request, response);
     }
+
 
     private String getTokenFromRequest(HttpServletRequest request) {
         //header of authorization

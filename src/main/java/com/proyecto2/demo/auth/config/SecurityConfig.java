@@ -1,6 +1,6 @@
-package com.proyecto2.demo.config;
+package com.proyecto2.demo.auth.config;
 
-import com.proyecto2.demo.auth.jwt.JwtAuthenticateFilter;
+import com.proyecto2.demo.auth.config.jwt.JwtAuthenticateFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
